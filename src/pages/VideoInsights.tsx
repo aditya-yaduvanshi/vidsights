@@ -1,6 +1,7 @@
 import AnswersStep from "components/AnswersStep";
 import QuestionsStep from "components/QuestionsStep";
 import SelectVideos from "components/SelectVideos";
+import { QUESTION_SEPARATOR } from "consts/app";
 import React from "react";
 import { useSearchParams } from "react-router-dom";
 import getExtractedQuestions from "utils/getExtractedQuestions";
@@ -24,7 +25,7 @@ const VideoInsights = () => {
                   alert("No questions found. Please provide questions.");
                 } else {
                   searchParams.set("step", "answers");
-                  searchParams.set("questions", qs.join(" "));
+                  searchParams.set("questions", qs.join(QUESTION_SEPARATOR));
                 }
                 return searchParams;
               })
