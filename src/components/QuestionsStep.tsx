@@ -79,7 +79,7 @@ const QuestionsStep = ({ onNext }: QuestionsStepProps) => {
         <div className="sticky bottom-0 flex justify-center items-center bg-white p-2.5 w-full">
           <button
             type="button"
-            className="bg-black text-white rounded p-2.5 w-full mx-auto sm:w-1/2 disabled:opacity-40"
+            className="bg-black text-white rounded p-2.5 w-full mx-auto sm:w-1/2 disabled:opacity-40 hover:bg-opacity-75 transition-all duration-100 active:scale-95"
             onClick={onNext}
             disabled={!questions.length}
           >
