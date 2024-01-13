@@ -3,7 +3,7 @@ const getAnswersFromVideos = async ({
 }: {
   videos: string[];
   questions: string[];
-}) => {
+}): Promise<{ question: string; answer: string }[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       const qa = questions.map((question) => ({
