@@ -56,8 +56,10 @@ const AnswersStep = () => {
         >
           &larr; Back
         </button>
-        <h2 className="text-5xl">Here are the answers to your questions</h2>
-        <p className="text-xl">Copy or download the document file</p>
+        <h2 className="text-xl md:text-5xl">
+          Here are the answers to your questions
+        </h2>
+        <p className="text-sm md:text-xl">Copy or download the document file</p>
         {isLoading && (
           <div className="w-full h-full flex justify-center items-center text-xl">
             Loading...
@@ -106,7 +108,7 @@ const AnswersStep = () => {
             {answers.map((item, i) => (
               <li key={i} className="border p-2.5">
                 <h3>
-                  <strong>Que ${i + 1}. </strong>
+                  <strong>Que {i + 1}. </strong>
                   {item.question}
                 </h3>
                 <p>

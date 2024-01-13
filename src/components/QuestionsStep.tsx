@@ -27,8 +27,8 @@ const QuestionsStep = ({ onNext }: QuestionsStepProps) => {
         >
           &larr; Back
         </button>
-        <h2 className="text-5xl">Please provide your questions</h2>
-        <p className="text-xl">Upload a file or type yourself</p>
+        <h2 className="text-xl md:text-5xl">Please provide your questions</h2>
+        <p className="text-sm md:text-xl">Upload a file or type yourself</p>
         <div className="grid grid-cols-2 gap-5 items-center w-full h-full">
           <label
             htmlFor="question"

@@ -94,7 +94,7 @@ const SelectVideos = ({ onNext }: SelectVideosProps) => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-5 relative h-full">
+    <div className="flex flex-col gap-5 relative h-full min-h-screen">
       <SearchForm
         onSearch={search}
         initialQuery={searchParams.get("query") || ""}
