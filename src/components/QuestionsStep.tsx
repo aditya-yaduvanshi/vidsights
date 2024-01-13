@@ -14,9 +14,9 @@ const QuestionsStep = ({ onNext }: QuestionsStepProps) => {
   const [uploadedFile, setUploadedFile] = useState<File>();
   return (
     <>
-      <div className="w-full flex flex-col justify-center items-center gap-5 h-full relative">
+      <div className="w-full flex flex-col justify-center items-center gap-5 h-full">
         <button
-          className="absolute top-2.5 left-2.5 hover:underline"
+          className="hover:underline self-start"
           onClick={() =>
             setSearchParams((prev) => {
               const urlParams = new URLSearchParams(prev.toString());
