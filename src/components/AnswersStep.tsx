@@ -2,6 +2,9 @@ import { QUESTION_SEPARATOR } from "consts/app";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import getAnswersFromVideos from "utils/getAnswersFromVideos";
+import getDocFromText from "utils/getDocFromText";
+import getTextFromAnswers from "utils/getTextFromAnswers";
+import handleDownload from "utils/handleDownload";
 
 const AnswersStep = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -76,14 +79,38 @@ const AnswersStep = () => {
         )}
         {answers.length ? (
           <ul className="h-full flex flex-col gap-2.5">
+            <li className="inline-flex justify-between items-center">
+              <button
+                type="button"
+                className="border border-black text-black p-2.5 rounded hover:bg-black hover:bg-opacity-5 transition-all duration-100 active:scale-95"
+                onClick={() => {
+                  navigator.clipboard.writeText(
+                    getTextFromAnswers({ answers })
+                  );
+                }}
+              >
+                Copy Answers
+              </button>
+              <button
+                type="button"
+                className="bg-black text-white p-2.5 rounded hover:bg-opacity-75 transition-all duration-100 active:scale-95"
+                onClick={async () => {
+                  const text = getTextFromAnswers({ answers, type: "html" });
+                  const source = await getDocFromText(text);
+                  handleDownload({ source, fileName: "download.doc" });
+                }}
+              >
+                Download Answers
+              </button>
+            </li>
             {answers.map((item, i) => (
               <li key={i} className="border p-2.5">
                 <h3>
-                  <strong>Que. </strong>
+                  <strong>Que ${i + 1}. </strong>
                   {item.question}
                 </h3>
                 <p>
-                  <strong>Ans. </strong>
+                  <strong>Ans {i + 1}. </strong>
                   {item.answer}
                 </p>
               </li>
