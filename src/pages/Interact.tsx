@@ -1,11 +1,18 @@
 import React, { useRef, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import {
+  useParams,
+  Link,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import useInsightsSessions from "hooks/useInsightsSessions";
 import getAnswerForQuestion from "utils/getAnswerForQuestion";
 import SelectVideos from "components/SelectVideos";
 
 const Interact = () => {
   const params = useParams();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const inputRef = useRef() as React.RefObject<HTMLTextAreaElement>;
   const lastMessageRef = useRef() as React.RefObject<HTMLLIElement>;
   const [sidebar, setSidebar] = useState({
@@ -13,10 +20,11 @@ const Interact = () => {
     isVideos: window.innerWidth < 720 ? false : true,
   });
   const [isLoadingAnswer, setLoadingAnswer] = useState(false);
-  const { getSession, insightsSessions, updateSession } =
-    useInsightsSessions();
+  const { getSession, insightsSessions, updateSession } = useInsightsSessions();
 
   const session = getSession(Number(params.id));
+
+  if (!session) navigate("/insights");
 
   const askQuestion = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -89,11 +97,11 @@ const Interact = () => {
             <ul className="h-full py-5 px-2.5 gap-1">
               {session?.answers.map((item, i) => (
                 <li key={i} className="flex flex-col gap-1 p-1">
-                  <span className="max-w-[90%] ml-auto p-2 bg-slate-200 rounded-xl rounded-bl-none">
+                  <span className="max-w-[90%] ml-auto p-2 bg-slate-200 rounded-xl rounded-br-none">
                     {item.question}
                   </span>
                   {item.answer ? (
-                    <span className="max-w-[90%] mr-auto p-2 bg-zinc-200 rounded-xl rounded-br-none">
+                    <span className="max-w-[90%] mr-auto p-2 bg-zinc-200 rounded-xl rounded-bl-none">
                       {item.answer}
                     </span>
                   ) : null}
@@ -128,8 +136,15 @@ const Interact = () => {
               sidebar.isVideos ? "col-span-2 z-10" : "hidden"
             } border-l overflow-y-auto p-2.5 pb-0`}
           >
-            {/* <VideoList /> */}
-            <SelectVideos onNext={() => {}} />
+            <SelectVideos
+              onNext={() => {
+                const videos = searchParams.get("selected")?.split(",");
+                updateSession(session?.id as number, {
+                  ...session,
+                  videos: videos || [],
+                });
+              }}
+            />
           </aside>
         </main>
       </div>
