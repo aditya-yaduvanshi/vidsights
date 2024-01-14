@@ -84,7 +84,7 @@ const Interact = () => {
             ))}
           </aside>
           <section
-            className={`col-span-3 relative overflow-y-auto h-full bg-gray-100`}
+            className={`col-span-3 relative overflow-y-auto bg-gray-100`}
           >
             <ul className="h-full py-5 px-2.5 gap-1">
               {session?.answers.map((item, i) => (
@@ -103,7 +103,7 @@ const Interact = () => {
             </ul>
             <form
               onSubmit={askQuestion}
-              className="w-full border-t flex items-center bg-white justify-center gap-2.5 p-2.5 bottom-0"
+              className="w-full border-t flex items-center bg-white justify-center gap-2.5 p-2.5 sticky bottom-0"
             >
               <textarea
                 id="query"
