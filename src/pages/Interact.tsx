@@ -7,12 +7,13 @@ import SelectVideos from "components/SelectVideos";
 const Interact = () => {
   const params = useParams();
   const inputRef = useRef() as React.RefObject<HTMLTextAreaElement>;
+  const lastMessageRef = useRef() as React.RefObject<HTMLLIElement>;
   const [sidebar, setSidebar] = useState({
     isSessions: window.innerWidth < 992 ? false : true,
     isVideos: window.innerWidth < 720 ? false : true,
   });
   const [isLoadingAnswer, setLoadingAnswer] = useState(false);
-  const { getSession, insightsSessions, updateSession, deleteSession } =
+  const { getSession, insightsSessions, updateSession } =
     useInsightsSessions();
 
   const session = getSession(Number(params.id));
@@ -34,6 +35,7 @@ const Interact = () => {
     setLoadingAnswer(false);
 
     inputRef.current.value = "";
+    lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -97,10 +99,11 @@ const Interact = () => {
                   ) : null}
                 </li>
               ))}
+              <li ref={lastMessageRef}></li>
             </ul>
             <form
               onSubmit={askQuestion}
-              className="w-full border-t flex items-center bg-white justify-center gap-2.5 p-2.5 sticky bottom-0"
+              className="w-full border-t flex items-center bg-white justify-center gap-2.5 p-2.5 bottom-0"
             >
               <textarea
                 id="query"
@@ -123,7 +126,7 @@ const Interact = () => {
           <aside
             className={`${
               sidebar.isVideos ? "col-span-2 z-10" : "hidden"
-            } border-l overflow-y-auto`}
+            } border-l overflow-y-auto p-2.5 pb-0`}
           >
             {/* <VideoList /> */}
             <SelectVideos onNext={() => {}} />
